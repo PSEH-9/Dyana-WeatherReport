@@ -6,11 +6,47 @@
 </head>
 <body>
 <div>
-<p>Weather forecast for next 3 days</p>
+<h4>Weather forecast for next 3 days</h4>
    
- <form action="">
-   
+ <form action="http://localhost:8080/weather" method="get"  target="hiddenFrame">
+  Choose Country: <select  id="country" name="countrylist">
+  <option value="US">United States</option>
+  <option value="UK">United Kingdom</option>
+  <option value="IN">India</option>
+</select>
+</br></br>
+Choose City:    
+<select  id="city" name="citylist" >
+  <option value="London">London</option>
+  <option value="California">California</option>
+  <option value="Florida">Florida</option>
+</select>
+</br> </br>
+
+<input value="Search" type="submit">
  </form>
+ 
+ <style>
+  .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
+</style>
+
+<iframe name="hiddenFrame" class="hide" src="http://localhost:8080/weather/123"></iframe>
+ 
+ 
+ 
+ 
 </div>
 </body>
+<script>
+$(document).ready(function(){
+	   var $form = $('form');
+	   $form.submit(function(){
+	      $.get($(this).attr('action'), $(this).serialize(), function(response){
+	           
+	      },'json');
+	      return false;
+	   });
+	});
+</script>
+
 </html>

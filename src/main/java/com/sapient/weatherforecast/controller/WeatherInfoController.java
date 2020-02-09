@@ -3,6 +3,8 @@
  */
 package com.sapient.weatherforecast.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,7 @@ public class WeatherInfoController {
 	
 	@GetMapping("/weather/{geoId}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<WeatherForecast> getWeatherForecast(@PathVariable int geoId) {
+	public ResponseEntity<List<WeatherForecast>> getWeatherForecast(@PathVariable int geoId) {
 		logger.info("getWeatherForecast for geoId: " + geoId);
 				
 		try {

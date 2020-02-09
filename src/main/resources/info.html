@@ -6,11 +6,40 @@
 </head>
 <body>
 <div>
-<p>Weather forecast for next 3 days</p>
+<h4>Weather forecast for next 3 days</h4>
    
- <form action="">
-   
+ <form action="http://localhost:8080/weather" method="get" formNae>
+  Choose Country: <select  id="country" name="countrylist">
+  <option value="US">United States</option>
+  <option value="UK">United Kingdom</option>
+  <option value="IN">India</option>
+</select>
+</br>
+Choose City:    
+<select  id="city" name="citylist" >
+  <option value="London">London</option>
+  <option value="California">California</option>
+  <option value="Florida">Florida</option>
+</select>
+</br>
+
+<input value="Search" type="submit">
  </form>
+ 
+ 
+ 
 </div>
 </body>
+<script>
+$(document).ready(function(){
+	   var $form = $('form');
+	   $form.submit(function(){
+	      $.post($(this).attr('action'), $(this).serialize(), function(response){
+	            // do something here on success
+	      },'json');
+	      return false;
+	   });
+	});
+</script>
+
 </html>

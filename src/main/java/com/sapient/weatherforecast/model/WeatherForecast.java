@@ -10,5 +10,8 @@ public class WeatherForecast {
 
 	
 	String timeTo;
+	String timeFrom;
+	String message;
+	int day;
 	
 }
