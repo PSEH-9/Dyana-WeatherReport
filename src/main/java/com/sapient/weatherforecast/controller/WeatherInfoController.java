@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sapient.weatherforecast.model.WeatherForecast;
+import com.sapient.weatherforecast.model.WeatherResponse;
 import com.sapient.weatherforecast.service.WeatherInfoService;
 
 /**
@@ -33,6 +34,11 @@ public class WeatherInfoController {
 	@Autowired
 	private WeatherInfoService weatherInfoService;
 
+	@GetMapping("/api/test")
+	public String test() {
+		return "Just test!!";	
+	}
+	
 	/*Input is GeoId
 	 *Based on GeoId, fetch country and city
 	 *Then invoke the rest client*/
@@ -47,6 +53,17 @@ public class WeatherInfoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/weatherinfo/{geoId}")
+	public WeatherResponse getWeatherJson(@PathVariable int geoId) {
+		logger.info("getWeatherForecast for geoId: " + geoId);			
+		try {
+			return weatherInfoService.getWeatherJson(geoId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
