@@ -16,14 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
+import com.sapient.weatherforecast.controller.WeatherInfoController;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import com.sapient.weatherforecast.controller.WeatherInfoController;
-
-import ch.qos.logback.core.status.Status;
-
 
 /**
  * @author indiahiring
@@ -45,6 +44,7 @@ public class WeatherForecastTest {
 	  mvc.perform( MockMvcRequestBuilders
 	      .put("/weatherinfo/{geoId}",4517009)
 	      .accept(MediaType.APPLICATION_JSON))
+	      .andExpect(status().isOk())
 	      .andExpect(MockMvcResultMatchers.jsonPath("$.location.name").exists())
 	      .andExpect(MockMvcResultMatchers.jsonPath("$.location.name").isNotEmpty());
 	}
@@ -55,6 +55,7 @@ public class WeatherForecastTest {
 	  mvc.perform( MockMvcRequestBuilders
 	      .get("/api/test")
 	      .accept(MediaType.APPLICATION_JSON))
-	      .andExpect(MockMvcResultMatchers.status().is(200));
+	      .andExpect(status().isOk());
+	  
 	}
 }
