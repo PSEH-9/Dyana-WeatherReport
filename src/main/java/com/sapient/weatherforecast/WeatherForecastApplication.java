@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @SpringBootApplication
+@ComponentScan("com.sapient.weatherforecast")
 public class WeatherForecastApplication 
 {
     public static void main( String[] args )
