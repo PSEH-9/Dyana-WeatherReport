@@ -6,12 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class WeatherForecast {
 
 	private LocationVo location;
 	private ForecastVo forecast;
+	private meta meta;
 	
 }
