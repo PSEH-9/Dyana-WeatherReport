@@ -3,6 +3,7 @@
  */
 package com.sapient.weatherforecast.serviceimpl;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.sapient.weatherforecast.controller.ControllerConfiguration;
 import com.sapient.weatherforecast.model.LocationInfo;
 import com.sapient.weatherforecast.model.WeatherForecast;
@@ -105,9 +110,13 @@ public class WeatherInfoServiceImpl implements WeatherInfoService{
 		    .queryParam("appid", "d2929e9483efc82c82c32ee7e02d563e");
 		
 		WeatherResponse respone=restTemplate.getForObject(builder.toUriString(), WeatherResponse.class);		
-		ObjectMapper mapper = new ObjectMapper();
+		
+		ObjectMapper mapper = new XmlMapper();
+		mapper.registerModule(new ParameterNamesModule());
+		mapper.registerModule(new Jdk8Module());
+		mapper.registerModule(new JavaTimeModule());
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			System.out.println(mapper.writeValueAsString(respone));
+		System.out.println(mapper.writeValueAsString(respone));
 			logger.info(respone);
 		return respone;
 	}

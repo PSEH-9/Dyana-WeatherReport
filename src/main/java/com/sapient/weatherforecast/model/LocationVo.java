@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import lombok.Data;
 
@@ -11,12 +13,15 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class LocationVo {
 	
-  @XmlAttribute(name="name")	
+  @JacksonXmlProperty	
   private String name;
-  @XmlAttribute	(name="country")
+  @JacksonXmlProperty
   private String country;
-  @XmlAttribute	(name="timezone")
-  private long timezone;
-  @XmlElement(name="location")
+  @JacksonXmlProperty
+  private String timezone;
+  @JacksonXmlProperty
+  private String type;
+  @JacksonXmlProperty
+  @JacksonXmlElementWrapper(localName = "location")
   private Locationzone location;
 }

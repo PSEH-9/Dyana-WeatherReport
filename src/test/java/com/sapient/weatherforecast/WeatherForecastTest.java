@@ -29,8 +29,8 @@ import ch.qos.logback.core.status.Status;
  * @author indiahiring
  *
  */
-//@RunWith(SpringRunner.class)
-//@WebMvcTest(WeatherInfoController.class)
+@RunWith(SpringRunner.class)
+@WebMvcTest(WeatherInfoController.class)
 public class WeatherForecastTest {
 
 	@InjectMocks
@@ -45,9 +45,8 @@ public class WeatherForecastTest {
 	  mvc.perform( MockMvcRequestBuilders
 	      .put("/weatherinfo/{geoId}",4517009)
 	      .accept(MediaType.APPLICATION_JSON))
-	  	  .andExpect(MockMvcResultMatchers.status().is(200));
-	      //.andExpect(MockMvcResultMatchers.jsonPath("$.location.name").exists())
-	      //.andExpect(MockMvcResultMatchers.jsonPath("$.location.name").isNotEmpty());
+	      .andExpect(MockMvcResultMatchers.jsonPath("$.location.name").exists())
+	      .andExpect(MockMvcResultMatchers.jsonPath("$.location.name").isNotEmpty());
 	}
 	
 	@Test

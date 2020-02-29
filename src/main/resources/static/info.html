@@ -6,7 +6,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-<div>
+
 <h4>Weather forecast for next 3 days</h4>
    
  <form action="http://localhost:8080/weather" method="get"  target="hiddenFrame">
@@ -36,18 +36,18 @@ Choose City:
  
  
  
- 
-</div>
 </body>
 <script>
 function getReport(){
 
-	        $.get("http://localhost:8080/weather/123", function(data){
-	        	//var parsedJson = $.parseJSON(data);
-	            $("#result").html(data);
+	        $.get("http://localhost:8080/weatherinfo/123", function(data){
+	       	var sun = data['sun'];
+	        	
+	        	var htmlData='<p> Sun Set: '+sun['set']+'</p> '+
+	        	        ' <p> SunRise:  '+sun['set']+'</p>';
+	        	     
+	            $("#result").html(htmlData);
 	        });
-	    
-	});
 }
 /*$(document).ready(function(){
 	   var $form = $('form');

@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import lombok.Data;
 
@@ -13,11 +16,16 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TimeVo {
 
-	@XmlAttribute(name="from")
+	@JsonProperty(value="from")
+	@JacksonXmlProperty(isAttribute = true)
 	 private String from;
-	@XmlAttribute(name="to")
-	 private String to;
-	@XmlElement (name="temperature")
+	
+	@JsonProperty(value="to")
+	@JacksonXmlProperty(isAttribute = true)
+	 private String to;	
+	
+	@JsonProperty(value="temperature")
+	@JacksonXmlProperty
 	 private TemperatureVo temperature;
 	 
 	//private windDirection 
