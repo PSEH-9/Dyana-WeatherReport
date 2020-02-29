@@ -45,8 +45,17 @@ public class WeatherForecastTest {
 	  mvc.perform( MockMvcRequestBuilders
 	      .put("/weather/{geoId}",4517009)
 	      .accept(MediaType.APPLICATION_JSON))
-	      .andExpect(MockMvcResultMatchers.jsonPath("$.timeto").exists())
-	      .andExpect(MockMvcResultMatchers.jsonPath("$.message").isNotEmpty());
+	  	  .andExpect(MockMvcResultMatchers.status().is(200));
+	      //.andExpect(MockMvcResultMatchers.jsonPath("$.location.name").exists())
+	      //.andExpect(MockMvcResultMatchers.jsonPath("$.location.name").isNotEmpty());
 	}
 	
+	@Test
+	public void getTest() throws Exception 
+	{
+	  mvc.perform( MockMvcRequestBuilders
+	      .get("/api/test")
+	      .accept(MediaType.APPLICATION_JSON))
+	      .andExpect(MockMvcResultMatchers.status().is(200));
+	}
 }
