@@ -18,7 +18,7 @@ import com.sapient.weatherforecast.model.WeatherResponse;
 @Service
 public interface WeatherInfoService {
 
-	List<WeatherForecast> getWeatherForecast(int geoId) throws Exception;
+	WeatherForecast getWeatherForecast(int geoId) throws Exception;
 	int validateGeoId(String city, String country, int geoId) throws Exception;
 	LocationInfo getLocation(int geoId) throws Exception;
 	

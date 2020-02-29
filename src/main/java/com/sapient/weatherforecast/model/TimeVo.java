@@ -2,6 +2,9 @@ package com.sapient.weatherforecast.model;
 
 import java.sql.Timestamp;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -10,8 +13,11 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TimeVo {
 
-	 private Timestamp from;
-	 private Timestamp to;
+	@XmlAttribute(name="from")
+	 private String from;
+	@XmlAttribute(name="to")
+	 private String to;
+	@XmlElement (name="temperature")
 	 private TemperatureVo temperature;
 	 
 	//private windDirection 

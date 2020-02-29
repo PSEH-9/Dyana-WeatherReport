@@ -3,14 +3,17 @@
  */
 package com.sapient.weatherforecast.serviceimpl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
@@ -42,18 +45,29 @@ public class WeatherInfoServiceImpl implements WeatherInfoService{
 	
 	
 	@Override
-	public List<WeatherForecast> getWeatherForecast(int geoId) throws Exception {
+	public WeatherForecast getWeatherForecast(int geoId) throws Exception {
 		logger.info("In getWeatherForecast");
 		Map<String, String> params= new HashMap<>();
 		params.put("q", "London,us");
 		params.put("mode", "xml");
 		params.put("appid", "b6907d289e10d714a6e88b30761fae22");
 		
-		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
 		HttpHeaders httpHeader = new HttpHeaders();
 		httpHeader.set("Content-Type", "application/xml");
-		String xmlString=restTemplate.getForObject("http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=xml&appid=d2929e9483efc82c82c32ee7e02d563e",String.class, params );		
-		logger.info(xmlString);
+		//String xmlString=restTemplate.getForObject("http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=xml&appid=d2929e9483efc82c82c32ee7e02d563e",String.class, params );		
+		
+		ResponseEntity<String> response = restTemplate.exchange("http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=xml&appid=d2929e9483efc82c82c32ee7e02d563e", HttpMethod.GET, entity, String.class);
+		System.out.println(response);
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		System.out.println(mapper.writeValueAsString(response.getBody()));
+		System.out.println(response);
+		logger.info(response.getBody());
 		return null;
 	}
 

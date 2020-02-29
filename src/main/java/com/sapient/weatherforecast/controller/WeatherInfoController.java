@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +33,8 @@ public class WeatherInfoController {
 
 	private final Logger logger = Logger.getLogger(WeatherInfoController.class);
 
-	@Autowired
-	private WeatherInfoService weatherInfoService;
+	@Autowired(required=true)
+	WeatherInfoService weatherInfoService;
 
 	@GetMapping("/api/test")
 	public String test() {
@@ -45,7 +47,7 @@ public class WeatherInfoController {
 	
 	@GetMapping("/weather/{geoId}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<WeatherForecast>> getWeatherForecast(@PathVariable int geoId) {
+	public ResponseEntity<WeatherForecast> getWeatherForecast(@PathVariable int geoId) {
 		logger.info("getWeatherForecast for geoId: " + geoId);
 				
 		try {
@@ -56,7 +58,7 @@ public class WeatherInfoController {
 		}
 	}
 	
-	@GetMapping("/weatherinfo/{geoId}")
+	@RequestMapping(value="/weatherinfo/{geoId}", method=RequestMethod.GET, produces="application/json")
 	public WeatherResponse getWeatherJson(@PathVariable int geoId) {
 		logger.info("getWeatherForecast for geoId: " + geoId);			
 		try {
