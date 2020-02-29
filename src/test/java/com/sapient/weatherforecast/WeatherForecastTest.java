@@ -29,8 +29,8 @@ import ch.qos.logback.core.status.Status;
  * @author indiahiring
  *
  */
-@RunWith(SpringRunner.class)
-@WebMvcTest(WeatherInfoController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(WeatherInfoController.class)
 public class WeatherForecastTest {
 
 	@InjectMocks
@@ -43,7 +43,7 @@ public class WeatherForecastTest {
 	public void getWeatherForecast() throws Exception 
 	{
 	  mvc.perform( MockMvcRequestBuilders
-	      .put("/weather/{geoId}",4517009)
+	      .put("/weatherinfo/{geoId}",4517009)
 	      .accept(MediaType.APPLICATION_JSON))
 	  	  .andExpect(MockMvcResultMatchers.status().is(200));
 	      //.andExpect(MockMvcResultMatchers.jsonPath("$.location.name").exists())
